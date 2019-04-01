@@ -1,0 +1,19 @@
+icon {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background-color: #292929;
+}
+
+.icon:hover {
+  background-color: #1f1f1f;
+}
+
+.icon img {
+  width: 22px;
+  height: 22px;
+}
