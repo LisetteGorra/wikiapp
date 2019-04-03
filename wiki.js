@@ -1,27 +1,37 @@
-const form = document.querySelector('.searchForm');
 
 form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
-  // prevent page from reloading when form is submitted
+    // prevent page from reloading when form is submitted
   event.preventDefault();
-  
+  // get the value of the input field
   const input = document.querySelector('.searchForm-input').value;
-  
+  // remove whitespace from the input
   const searchQuery = input.trim();
- fetchResults(searchQuery);
-
+  // call `fetchResults` and pass it the `searchQuery`
+  fetchResults(searchQuery);
 }
 
-function fetchResults(searchQuery) {
+function fetchResults(query) {
   const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${searchQuery}`;
-  console.log(endpoint);
+
+  fetch(endpoint)
+  .then(response => response.json())
+  .then(data => {
+    const results = data.query.search;
+    displayResults(results);
+});
 }
-
-
-
-
-
+function displayResults(results) {
+  // Store a reference to `.searchResults`
+  const searchResults = document.querySelector('.searchResults');
+  // Remove all child elements
+  searchResults.innerHTML = '';
+   results.forEach(result => {
+   });
+}
+const form = document.querySelector('.searchForm');
+form.addEventListener('submit', handleSubmit);
 
 
 
