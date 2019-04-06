@@ -6,8 +6,8 @@ function handleSubmit(event) {
   event.preventDefault();
   // get the value of the input field
   const input = document.querySelector('.searchForm-input').value;
-  // remove whitespace from the input
-  const searchQuery = input.trim();
+  // // remove whitespace from the input
+  // const searchQuery = input.trim();
   // call `fetchResults` and pass it the `searchQuery`
   fetchResults(searchQuery);
 }
@@ -47,6 +47,7 @@ const form = document.querySelector('.searchForm');
 form.addEventListener('submit', handleSubmit);
 
 
+//download coars
 
 
 
