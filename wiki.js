@@ -31,12 +31,22 @@ function showFeedback(text){
     setTimeout(()=>feedback.classList.remove('showItem'), 3000);
 }
 //ajax wiki
-
 function ajaxWiki(search){
     output.innerHTML = "";
     loading.classList.add('showItem');
     
     const wikiUrl = `${base}${url}${search}`;
     
-    fetch(wikiUrl).then(data => data.json()).then(data => console.log(data))
+    fetch(wikiUrl).then(data => data.json()).then(data => displayData(data)).catch(e => console.log(e));
+}
+
+function displayData(data){
+    loading.classList.remove("showItem");
+    const {search:results} = data.query;
+    
+    let info = '';
+    results.forEach( result => {
+        
+    })
+    
 }
