@@ -1,69 +1,42 @@
+const loading = document.querySelector(".loading");
+const searchForm = document.querySelector(".searchForm");
+const output = document.querySelector(".output");
+const search = document.querySelector(".search");
+const feedback = document.querySelector(".feedback");
 
-form.addEventListener('submit', handleSubmit);
+const base = 'http://en.wikipedia.org/w/api.php';
+const url = '?action=query&format=json&origin=*&prop=&list=search&srsearch=';
 
-function handleSubmit(event) {
-    // prevent page from reloading when form is submitted
-  event.preventDefault();
-  // get the value of the input field
-  const input = document.querySelector('.searchForm-input').value;
-  // // remove whitespace from the input
-  // const searchQuery = input.trim();
-  // call `fetchResults` and pass it the `searchQuery`
-  fetchResults(searchQuery);
-}
-
-function fetchResults(query) {
-  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${searchQuery}`;
-
-  fetch(endpoint)
-  .then(response => response.json())
-  .then(data => {
-    const results = data.query.search;
-    displayResults(results);
+searchForm.addEventListener('submit', function(e){
+   event.preventDefault();
+   
+   const value = search.value;
+   
+   if(value.legnth == ""){
+       showFeedback('please enter a valid search value')
+   }
+   else{
+       search.value =="";
+   //ajax
+     ajaxWiki(value);  
+   }
+   
 });
+
+// show feedback
+function showFeedback(text){
+    feedback.classList.add('showItem');
+    feedback.innerHTML =`<p>${text}</p>`;
+    
+    setTimeout(()=>feedback.classList.remove('showItem'), 3000);
 }
-function displayResults(results) {
-  // Store a reference to `.searchResults`
-  const searchResults = document.querySelector('.searchResults');
-  // Remove all child elements
-  searchResults.innerHTML = '';
+//ajax wiki
 
-  // Loop over results array
-  results.forEach(result => {
-   const url = encodeURI(`https://en.wikipedia.org/wiki/${result.title}`);
-
-   searchResults.insertAdjacentHTML('beforeend',
-      `<div class="resultItem">
-        <h3 class="resultItem-title">
-          <a href="${url}" target="_blank" rel="noopener">${result.title}</a>
-        </h3>
-        <span class="resultItem-snippet">${result.snippet}</span><br>
-        <a href="${url}" class="resultItem-link" target="_blank" rel="noopener">${url}</a>
-      </div>`
-    );
-  });
+function ajaxWiki(search){
+    output.innerHTML = "";
+    loading.classList.add('showItem');
+    
+    const wikiUrl = `${base}${url}${search}`;
+    
+    fetch(wikiUrl).then(data => data.json()).then(data => console.log(data))
 }
-const form = document.querySelector('.searchForm');
-form.addEventListener('submit', handleSubmit);
-
-
-//download coars
-
-
-
-
-
-// function wikibutton(){
-// var url = 'https://www.wikipedia.org/';
-// var data = {username: 'example'};
-
-// fetch(url, {
-//   method: 'POST', // or 'PUT'
-//   body: JSON.stringify(data), // data can be `string` or {object}!
-//   headers:{
-//     'Content-Type': 'application/json'
-//   }
-// }).then(res => res.json())
-// .then(response => console.log('Success:', JSON.stringify(response)))
-// .catch(error => console.error('Error:', error));
-// }
